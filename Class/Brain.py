@@ -3,13 +3,13 @@ import random
 
 class Brain:
 	def __init__(self, numSteps):
-		self.numSteps = numSteps #num of directions
+		self.numSteps = numSteps # Num of directions
 		self.step = 0
 		self.directions = []
 		self.__randomize__()
 		return
 
-	#create random directions/velocities for all steps
+	# Create random directions/velocities for all steps
 	def __randomize__(self):
 		for i in range(self.numSteps):
 			randomAngle = math.radians(random.randint(0, 360))
@@ -20,13 +20,13 @@ class Brain:
 			self.directions.append([x,y])
 		return
 
-	#Copy the brain of the parent dot
+	# Copy the brain of the parent dot
 	def clone(self, parentDot):
 		for i in range(self.numSteps):
 			self.directions[i] = parentDot.brain.directions[i]
 		return
 
-	#Randomly change {mutationRate} percent of Steps
+	# Randomly change {mutationRate} percent of Steps
 	def mutate(self, mutationRate):
 		for i in range(self.numSteps):
 			rand = random.uniform(0.0, 1.0)

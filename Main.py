@@ -3,27 +3,37 @@ from Class.Window import Window
 
 import time
 
-win = Window(750, 750)
+def __main__():
+	win = Window(750, 750)
 
-win.createGoal()
-pop = Population(100)
+	win.createGoal()
+	pop = Population(100)
 
-win.showPopulation(pop)
+	win.showPopulation(pop)
 
-# TODO: how to get no errors on close
-while True:
-	time.sleep(0.01)
-	pop.update(win)
+	# Create Walls
+	win.createWall(0, 300, 0, 300)
+	win.createWall(450, 750, 0, 300)
+	win.createWall(0,500,500, 520)
 
-	if(pop.areAllDead() == True):
-		numReached = pop.howManyReached()
-		genTotalFitness = pop.updateTotalFitness(win)
-		generation = pop.generation
+	# TODO: Refactor tkinter to exit gracefully
+	while win:
+		time.sleep(0.01)
+		pop.update(win)
 
-		pop.naturalSelection(win)
-		pop.mutateBabies()
-		win.showPopulation(pop)
-		print("Generation %s. NumReached = %s. TotalFitness = %s." %(generation, numReached, genTotalFitness))
+		if(pop.areAllDead() == True):
+			numReached = pop.howManyReached()
+			genTotalFitness = pop.updateTotalFitness(win)
+			generation = pop.generation
 
-	win.updateDotsUi(pop)
-	win.update()
+			pop.naturalSelection(win)
+			pop.mutateBabies()
+			win.showPopulation(pop)
+			print("Generation %s. NumReached = %s. TotalFitness = %s." %(generation, numReached, genTotalFitness))
+
+		win.updateDotsUi(pop)
+		win.update()
+
+
+if __name__ == "__main__":
+	__main__()

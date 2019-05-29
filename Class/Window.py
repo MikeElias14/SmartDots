@@ -1,4 +1,5 @@
 from .Goal import Goal
+from .Wall import Wall
 
 import tkinter as tk
 
@@ -12,8 +13,7 @@ class Window:
 		self.win.geometry("%dx%d" % (width, height))
 		self.canvas = tk.Canvas(self.win, height=width, width=height)
 		self.canvas.grid(row=0, column=0, sticky='w')
-		return
-
+		
 
 	def showPopulation(self, pop):
 		for i in range(pop.size):
@@ -37,7 +37,7 @@ class Window:
 			dot = pop.dots[i]
 
 			if dot.dead == False:
-				#Do the actual updating of the dot UI
+				# Do the actual updating of the dot UI
 				self.canvas.move(dot.body, dot.vel[0], dot.vel[1])
 		return
 
@@ -47,7 +47,13 @@ class Window:
 		return
 
 
+	def createWall(self, x1, x2, y1, y2):
+		self.walls.append(Wall(x1,x2,y1,y2))
+		self.canvas.create_rectangle(x1, y1, x2, y2, outline = "blue", fill = "blue")
+		return
+
+
 	def createGoal(self):
 		self.goal = Goal(self.width/2,50)
 		self.__showGoal__()
-		return
+		return		

@@ -8,8 +8,8 @@ class Population:
 		self.size = size
 		self.dots = []
 		self.generation = 1
-		self.minSteps = 400 #this should be var. number of max steps in brain
-		self.mutationRate = 1 #start with 100% mutation
+		self.minSteps = 400 # This should be var. number of max steps in brain
+		self.mutationRate = 1 # Start with 100% mutation
 
 		for i in range(self.size):
 			self.dots.append(Dot())
@@ -36,16 +36,17 @@ class Population:
 		self.totalFitness = self.updateTotalFitness(win)
 
 		for i in range(self.size):
-			#makeNewDots
+
+			# Make new dots
 			newDots.append(Dot())
 
-			#GetAParent
+			#Get parent
 			parentDot = self.selectParent()
 
-			#makeBaby
+			# Make baby
 			newDots[i].makeBaby(parentDot)
 
-		#make sure the best dot does not get lost
+		# Make sure the best dot does not get lost
 		newDots[0].makeBaby(self.getChamp())
 		self.dots = newDots
 		self.generation += 1
@@ -67,16 +68,15 @@ class Population:
 		runningSum = 0.0
 
 		for i in range(self.size):
-			runningSum += self.dots[i].fitness #maybe findFitness again.. but already updated so dont have to. may be best practice though
+			runningSum += self.dots[i].fitness # Maybe findFitness again.. but already updated so dont have to. may be best practice though
 			if runningSum > rand:
 				return self.dots[i]
-		#should never get here
-		return
+		return # Should never get here
 
 
 	def mutateBabies(self):
 		self.mutationRate = 0.01
-		for i in range(1, self.size): #Start at 1 to not mutate champ
+		for i in range(1, self.size): # Start at 1 to not mutate champ
 	 		self.dots[i].mutateBrain(self.mutationRate)
 		return
 
